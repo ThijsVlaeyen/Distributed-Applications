@@ -20,3 +20,15 @@ end)
 IO.puts("Sequential: #{t1}ms")
 
 # Now do this asynchronously with tasks and see how much faster it runs.
+t2 = Factorial.benchmark(fn ->
+  tasks = Enum.map(
+    1..n,
+    fn k -> Task.async(fn -> Factorial.calc(k) end) end
+  )
+
+  Task.yield_many(tasks, :infinity)
+end)
+
+IO.puts("Parallelized: #{t2}ms")
+
+
