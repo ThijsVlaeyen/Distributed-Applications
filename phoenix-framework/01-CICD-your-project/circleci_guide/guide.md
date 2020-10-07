@@ -15,7 +15,7 @@ Be careful with this so that you don't run out on the exam, this is solely your 
 
 ## Create your repo
 
-This should be obvious. Go to [GitHub](www.github.com), press the big green plus sign, you know, the one for a new repository. Then you'll create a clean project with no readme/gitignore.
+This should be obvious. Go to [GitHub](https://www.github.com), press the big green plus sign, you know, the one for a new repository. Then you'll create a clean project with no readme/gitignore.
 
 ## Phoenix
 
@@ -486,7 +486,7 @@ While `~` refers to the `/home/circleci` folder, when we execute `checkout`, it'
 While this is all good and well, we'll need to update our `store-test-results` step as well like so:
 
 ```yml
-      - store_test_results: 
+      - store_test_results:
           # Read more: https://circleci.com/docs/2.0/collect-test-data/
           path: test-reports
 ```
