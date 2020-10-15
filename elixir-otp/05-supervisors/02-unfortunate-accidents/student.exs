@@ -5,7 +5,8 @@ defmodule Employee do
     use GenServer
 
     def start_link(name: n), do: GenServer.start_link(__MODULE__, 0, name: n)
-    def init(work) when is_integer(work), do: {:ok, %{work: 0}, {:continue, :start}} # {:continue, :to_be_matched_upon} could be the 3rd element of the tuple
+    # Added default work 20 to see if restart works
+    def init(work) when is_integer(work), do: {:ok, %{work: 20}, {:continue, :start}} # {:continue, :to_be_matched_upon} could be the 3rd element of the tuple
 
     def add_work(emp, amount), do: GenServer.cast(emp, {:addwork, amount})
     def handle_cast({:addwork, n}, s), do: {:noreply, %{s | work: s.work + n}}
@@ -34,7 +35,7 @@ end
 
 children = Enum.map(workers, &Supervisor.child_spec({Employee, [name: &1]}, id: &1))
 
-opts = [strategy: :one_for_one, name: supervisor]
+opts = [strategy: :one_for_all, name: supervisor]
 Supervisor.start_link(children, opts)
 
 # Verify that everything is running
